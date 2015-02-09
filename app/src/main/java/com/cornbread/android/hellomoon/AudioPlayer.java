@@ -7,22 +7,24 @@ public class AudioPlayer {
     private MediaPlayer mPlayer;
     private Boolean mPaused = false;
 
-    public void play(Context c){
+    public void playFromScratch(Context c){
+        stop(); //This will destroy any other instances of the media player. We don't want two instances.
+
+        mPlayer = MediaPlayer.create(c, R.raw.one_small_step);
+
+        mPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            public void onCompletion(MediaPlayer mp) {
+                stop(); // Call stop once the file is done playing
+            }
+        });
+        mPlayer.start();
+    }
+
+    public void PlayPause(Context c){
 
         if (mPlayer  == null){
-            //Make From Scratch
-
-            stop(); //This will destroy any other instances of the media player. We don't want two instances.
-
-            mPlayer = MediaPlayer.create(c, R.raw.one_small_step);
-
-            mPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                public void onCompletion(MediaPlayer mp) {
-                    stop(); // Call stop once the file is done playing
-                }
-            });
+            playFromScratch(c);
             setPaused(false);
-            mPlayer.start();
         }
         else{
             if (mPlayer.isPlaying()){
@@ -35,19 +37,8 @@ public class AudioPlayer {
                     setPaused(false);
                 }
                 else{
-                    //Make From Scratch
-
-                    stop(); //This will destroy any other instances of the media player. We don't want two instances.
-
-                    mPlayer = MediaPlayer.create(c, R.raw.one_small_step);
-
-                    mPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                        public void onCompletion(MediaPlayer mp) {
-                            stop(); // Call stop once the file is done playing
-                        }
-                    });
+                    playFromScratch(c);
                     setPaused(false);
-                    mPlayer.start();
                 }
             }
         }
