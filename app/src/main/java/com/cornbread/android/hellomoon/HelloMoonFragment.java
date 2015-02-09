@@ -1,6 +1,7 @@
 package com.cornbread.android.hellomoon;
 
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -13,6 +14,7 @@ public class HelloMoonFragment extends Fragment {
 
     private AudioPlayer mPlayer = new AudioPlayer();
     private Button mPlayButton;
+    private Button mPauseButton;
     private Button mStopButton;
 
 
@@ -25,6 +27,14 @@ public class HelloMoonFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 mPlayer.play(getActivity());
+            }
+        });
+
+        mPauseButton = (Button)v.findViewById(R.id.hellomoon_pauseButton);
+        mPauseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPlayer.pause();
             }
         });
 
