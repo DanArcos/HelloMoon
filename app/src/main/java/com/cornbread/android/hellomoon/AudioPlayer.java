@@ -9,7 +9,9 @@ public class AudioPlayer {
 
     public void play(Context c){
 
-        if(isPaused() == false) {
+        if (mPlayer  == null){
+            //Make From Scratch
+
             stop(); //This will destroy any other instances of the media player. We don't want two instances.
 
             mPlayer = MediaPlayer.create(c, R.raw.one_small_step);
@@ -19,17 +21,40 @@ public class AudioPlayer {
                     stop(); // Call stop once the file is done playing
                 }
             });
+            setPaused(false);
+            mPlayer.start();
         }
+        else{
+            if (mPlayer.isPlaying()){
+                pause();
+                setPaused(true);
+            }
+            else{
+                if (isPaused()){
+                    mPlayer.start();
+                    setPaused(false);
+                }
+                else{
+                    //Make From Scratch
 
-        mPlayer.start();
-        setPaused(false);
+                    stop(); //This will destroy any other instances of the media player. We don't want two instances.
+
+                    mPlayer = MediaPlayer.create(c, R.raw.one_small_step);
+
+                    mPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                        public void onCompletion(MediaPlayer mp) {
+                            stop(); // Call stop once the file is done playing
+                        }
+                    });
+                    setPaused(false);
+                    mPlayer.start();
+                }
+            }
+        }
     }
 
     public void pause(){
-        if (mPlayer != null){
-            mPlayer.pause();
-            setPaused(true);
-        }
+        mPlayer.pause();
     }
 
     public void setPaused(Boolean paused){
