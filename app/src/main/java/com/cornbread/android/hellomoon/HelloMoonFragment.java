@@ -17,6 +17,13 @@ public class HelloMoonFragment extends Fragment {
 
 
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+        //HelloMoonFragment.onCreate
+        super.onCreate(savedInstanceState);
+        setRetainInstance(true); //Retain fragment so MediaPlayerInstance doesn't reset
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup parent, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_hello_moon, parent, false);
 
