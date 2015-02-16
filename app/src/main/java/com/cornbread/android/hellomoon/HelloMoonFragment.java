@@ -20,7 +20,10 @@ public class HelloMoonFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         //HelloMoonFragment.onCreate
         super.onCreate(savedInstanceState);
-        setRetainInstance(true); //Retain fragment so MediaPlayerInstance doesn't reset
+
+        //Retain fragment so MediaPlayerInstance doesn't reset
+        //All variables are retained during a configuration
+        setRetainInstance(true);
     }
 
     @Override
